@@ -3,6 +3,7 @@ package Listeners;
 
 import Utils.BaseUtility;
 import Utils.DriverManager;
+import io.qameta.allure.Allure;
 import io.qameta.allure.Attachment;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -11,6 +12,7 @@ import org.testng.ITestListener;
 import org.testng.ITestResult;
 import org.testng.ITestContext;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
 public class TestListeners implements ITestListener {
@@ -27,15 +29,13 @@ public class TestListeners implements ITestListener {
         System.out.println("Execution ends");
     }
 
-    @Attachment(value = "Screenshot of {0}", type = "image/png")
-    public byte[] saveScreenshot(String name, WebDriver driver) {
-        return (byte[]) ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
-    }
 
     @Override
+    @Attachment(value = "Screenshot", type = "image/png")
     public void onTestFailure(ITestResult result) {
         try {
-            saveScreenshot(result.getName(), DriverManager.getDriver());
+            Allure.addAttachment("Screenshot", new ByteArrayInputStream(((TakesScreenshot) DriverManager.getDriver()).getScreenshotAs(OutputType.BYTES)));
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

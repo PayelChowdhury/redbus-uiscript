@@ -30,13 +30,15 @@ static BaseUtility baseUtility;
     }
     return driver;
 }
-    @Step("get driver")
-   public static WebDriver getDriver() throws IOException {
-    driver= createDriver();
-    return driver;
+    @Step("Get driver method - call the create driver method")
+    public static WebDriver getDriver() throws IOException {
+        if(driver == null){
+          driver= createDriver();
+        }
+     return driver;
    }
     @Step("close driver")
-   public void closeBrowser(){
+    public void closeBrowser(){
         driver.close();
         driver.quit();
    }

@@ -5,7 +5,6 @@ import PageObjects.HomePage;
 import Utils.DriverManager;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
-import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
@@ -22,7 +21,6 @@ import java.io.IOException;
 @Listeners(TestListeners.class)
 
 public class HomePageSteps {
-
     WebDriver driver;
     HomePage homePage ;
 

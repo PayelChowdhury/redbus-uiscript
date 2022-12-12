@@ -3,6 +3,8 @@ package Utils;
 import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.*;
+import java.sql.DriverManager;
 import java.time.Duration;
 import java.util.Map;
 import java.util.Properties;
@@ -20,10 +22,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.yaml.snakeyaml.Yaml;
 
 public class BaseUtility {
-    Properties properties ;
+    static Properties properties ;
     WebDriver driver;
     JSONParser jsonParser;
     static Map<?,?> property;
+    private static Connection con;
 
 public BaseUtility() throws IOException {
     try{
@@ -74,6 +77,38 @@ public BaseUtility() throws IOException {
     public void clickJavaScript(WebDriver driver, WebElement element){
         JavascriptExecutor executor = (JavascriptExecutor)driver;
         executor.executeScript("arguments[0].click();", element);
+    }
+    public static Connection loadAndConnectDatabase() throws ClassNotFoundException, SQLException {
+
+        final String driver = properties.getProperty("driver");
+        final String HOST = properties.getProperty("host");
+        final String DB_NAME = properties.getProperty("dbname");
+        final String USER = properties.getProperty("user");
+        final String PASSWORD = properties.getProperty("password");
+        final String PORT = properties.getProperty("port");
+
+
+        //load driver to establish database connection
+        Class.forName(driver);
+        // Create the connection object and connect to the DB
+        con = DriverManager
+                .getConnection(
+                        "jdbc:postgresql://"+HOST+":"+PORT+"/"+DB_NAME+"",
+                        USER,
+                        PASSWORD
+                );
+        System.out.println("connect to the database successfully");
+        return con;
+    }
+    /**
+     * get a result of query
+     */
+    public static ResultSet getResultSet(String query) throws SQLException, ClassNotFoundException {
+        Connection con = loadAndConnectDatabase();
+        ResultSet rs;
+        PreparedStatement st = con.prepareStatement(query);
+        rs = st.executeQuery();
+        return rs;
     }
 
 }
