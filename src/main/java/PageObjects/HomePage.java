@@ -25,7 +25,7 @@ public class HomePage {
    JavascriptExecutor executor;
 
     private static final String TOP_MENU = "//li[@class='menu_Hotels']/div";
-    private static final String CITY = "//label//input[@id='cit']";
+    private static final String CITY = "//label//input[@id='city']";
     private static final String CITY_NAME= "//div[@role='listbox']//div[1]//ul[@role='listbox']//li[1]";
 
     public HomePage(WebDriver driver) throws IOException {
