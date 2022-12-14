@@ -50,9 +50,9 @@ public class Hook {
 
     @After(order =0)
     public void afterSteps(Scenario sc) throws IOException {
-//        if(sc.isFailed()){
-//            Allure.addAttachment("Screenshot", new ByteArrayInputStream(((TakesScreenshot) DriverManager.getDriver()).getScreenshotAs(OutputType.BYTES)));
-//        }
+        if(sc.isFailed()){
+            Allure.addAttachment("Screenshot", new ByteArrayInputStream(((TakesScreenshot) DriverManager.getDriver()).getScreenshotAs(OutputType.BYTES)));
+        }
         driverManager.closeBrowser();
         System.out.println("The execution End");
     }

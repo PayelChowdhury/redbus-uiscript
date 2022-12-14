@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: RunnerClass.CucumberRunner
 -------------------------------------------------------------------------------
-Tests run: 0, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 26.529 s - in RunnerClass.CucumberRunner
+Tests run: 0, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 30.196 s - in RunnerClass.CucumberRunner

@@ -37,6 +37,9 @@ public BaseUtility() throws IOException {
         e.printStackTrace();
     }
 }
+    /**
+     *read data from data.json file
+     */
     public String readJsonObject(String string) throws IOException{
         try{
             jsonParser = new JSONParser();
@@ -50,6 +53,9 @@ public BaseUtility() throws IOException {
             throw new RuntimeException(e);
         }
     }
+    /**
+     * read data from data.yaml file
+     */
     public String readYamlObject(String string) throws IOException {
       FileReader reader = new FileReader("properties/data.yaml");
       Yaml yml = new Yaml();
@@ -57,27 +63,46 @@ public BaseUtility() throws IOException {
       String String = (String) property.get(string);
       return String;
     }
+    /**
+     * fetch the browser name from properties file
+     */
     public String getBrowserName() throws IOException {
         String browserName=properties.getProperty("browser");
         return browserName;
     }
+    /**
+     * invoke url
+     */
     public String invokeUrl() {
         String url = properties.getProperty("url");
         return url;
     }
+    /**
+     * time duration method
+     */
  public Duration duration(){
      Duration duration = Duration.ofSeconds(Long.parseLong(properties.getProperty("duration")));
      return duration;
  }
-    public static WebElement Wait(WebDriver driver, By by, Duration duration){
+    /**
+     * add explicit wait with visibility of located element conditions
+     */
+    public static WebElement wait(WebDriver driver, By by, Duration duration){
         WebDriverWait webDriverWait = new WebDriverWait(driver, duration);
         webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(by));
         return driver.findElement(by);
     }
+
+    /**
+     * click element using javaScriptExecutor
+     */
     public void clickJavaScript(WebDriver driver, WebElement element){
         JavascriptExecutor executor = (JavascriptExecutor)driver;
         executor.executeScript("arguments[0].click();", element);
     }
+    /**
+     * load database driver and create a connection
+     */
     public static Connection loadAndConnectDatabase() throws ClassNotFoundException, SQLException {
 
         final String driver = properties.getProperty("driver");
