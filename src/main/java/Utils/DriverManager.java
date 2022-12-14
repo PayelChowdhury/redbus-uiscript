@@ -39,8 +39,8 @@ static BaseUtility baseUtility;
    }
     @Step("close driver")
     public void closeBrowser(){
-//        driver.close();
-//        driver.quit();
+        driver.close();
+        driver.quit();
    }
 
 }
